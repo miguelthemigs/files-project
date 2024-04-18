@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 120px; /* Ajuste a altura do cabeçalho conforme necessário */
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Ajuste o padding se necessário */
+}
+
+.header-left img {
+    width: 150px; /* Aumente o tamanho da imagem conforme desejado */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.header-middle h1 {
+    margin: 0;
+    font-size: 30px; /* Ajuste o tamanho da fonte conforme necessário */
+}
+
+.header-right a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 12px 24px; /* Aumentado de 8px 16px para 12px 24px */
+    background-color: #e0e0e0;
+    border-radius: 6px; /* Ajuste sutil no raio da borda */
+    font-size: 18px; /* Aumento do tamanho da fonte */
+    display: inline-block; /* Ajuda a manter o padding corretamente */
+    transition: background-color 0.3s; /* Efeito de transição suave ao passar o mouse */
+}
+
+.header-right a:hover {
+    background-color: #ccc; /* Altera a cor de fundo ao passar o mouse para um feedback visual */
+}

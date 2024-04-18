@@ -1,1 +1,39 @@
-<h1>ola</h1>
+{extends header.html}
+
+{% if request.user.is_authenticated %}
+<p>Hello {{request.user}}!</p>
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Document</title>
+</head>
+<body>
+    <h1>Document Details</h1>
+    <p><strong>Title:</strong> {{ document.doc_title }}</p>
+    <p><strong>Date:</strong> {{ document.doc_date }}</p>
+    <p><strong>Type:</strong> {{ type }}</p>
+
+    {% if type == 'pdf' %}
+        <embed src="{{ document.doc.url }}" width="800px" height="600px" />
+    {% elif type == 'mp4' %}
+        <video width="800" height="600" controls>
+            <source src="{{ document.doc.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {% elif type == 'mp3' %}
+        <audio controls>
+            <source src="{{ document.doc.url }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    {% else %}
+        <p>No preview available for this document type.</p>
+    {% endif %}
+</body>
+</html>

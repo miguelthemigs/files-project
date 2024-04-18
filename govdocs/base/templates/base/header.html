@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviv Documentos</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_Arquivo_Nacional.png" alt="Logo">
+            </div>
+            <div class="header-middle">
+                <h1>Aviv Documentos</h1>
+            </div>
+            <div class="header-right">
+                <a href="/profile">Perfil</a>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+    
+</body>
+</html>
