@@ -63,13 +63,16 @@ zoomableImage.addEventListener('wheel', (event) => {
     zoomableImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
     zoomableImage.style.transform = `scale(${scale})`;
 
-    // Change cursor to zoom-in or zoom-out icon
+    // Change cursor to zoom-in, zoom-out, or default cursor icon
     if (delta > 0) {
         document.documentElement.style.cursor = 'zoom-in';
-    } else {
+    } else if (delta < 0 && scale > 1) {
         document.documentElement.style.cursor = 'zoom-out';
+    } else {
+        document.documentElement.style.cursor = 'auto';
     }
 });
+
 
 
 </script>
