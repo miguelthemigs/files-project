@@ -154,6 +154,9 @@ header {
 
 .navigation-buttons {
     margin-bottom: 20px; /* Espaço abaixo dos botões de navegação */
+    display: flex;
+    align-items: center;  /* Align items vertically in the center */
+    padding: 10px;  /* Add some padding around the container */
 }
 
 .option-button {
@@ -175,5 +178,3 @@ header {
 .options-container {
     margin-top: 20px; /* Espaçamento acima da barra de opções */
 }
-
-
