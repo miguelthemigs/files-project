@@ -1,0 +1,17 @@
+{% extends "base/header.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="profile-container">
+    <h1>{{ user.username }}</h1>
+    <p>Pontos: {{ points }}</p>
+    <!-- Adicione a parte da foto do perfil aqui, se você já tiver uma URL para a foto -->
+</div>
+
+
+{% endblock %}
+

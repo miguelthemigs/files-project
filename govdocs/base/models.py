@@ -9,6 +9,13 @@ class User(models.Model):
 
     def __str__(self):
         return self.nome    
+
+from django.conf import settings
+
+class UserPoints(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    session_key = models.CharField(max_length=40, null=True, blank=True)
+    points = models.IntegerField(default=0)
     
 class InputLog(models.Model):
     input_id = models.AutoField(primary_key=True)

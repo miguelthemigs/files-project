@@ -1,6 +1,8 @@
 body {
+    background-color: #E2E2E2;
     margin: 0;
     font-family: Arial, sans-serif;
+    padding-top: 130px; /* Ajuste este valor com base na altura do seu cabeçalho */
 }
 
 header {
@@ -15,6 +17,7 @@ header {
 }
 
 .header-container {
+    background-color: #E2E2E2;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,14 +38,126 @@ header {
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    padding: 12px 24px; /* Aumentado de 8px 16px para 12px 24px */
+    padding: 12px 24px;
     background-color: #e0e0e0;
-    border-radius: 6px; /* Ajuste sutil no raio da borda */
-    font-size: 18px; /* Aumento do tamanho da fonte */
-    display: inline-block; /* Ajuda a manter o padding corretamente */
-    transition: background-color 0.3s; /* Efeito de transição suave ao passar o mouse */
+    border-radius: 6px;
+    font-size: 18px;
+    display: inline-block;
+    transition: background-color 0.3s;
 }
 
 .header-right a:hover {
-    background-color: #ccc; /* Altera a cor de fundo ao passar o mouse para um feedback visual */
+    background-color: #ccc;
 }
+
+/* Conteúdo principal e elementos de autenticação */
+.content-container {
+    padding: 1em;
+}
+
+.authentication-container {
+    display: flex;
+    justify-content: flex-start; /* Alinha à esquerda */
+    align-items: center; /* Centraliza verticalmente */
+    margin-bottom: 1em;
+}
+
+.greeting-text {
+    margin-right: 10px; /* Espaço entre o texto de saudação e o botão de logout */
+}
+
+.auth-button {
+    text-decoration: none;
+    color: white;
+    background-color: #8B0000; /* Cor de fundo dos botões de autenticação */
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-left: 10px; /* Espaço à esquerda do botão de login/logout */
+}
+
+/* Estilo da barra de opções */
+.options-container {
+    text-align: center; /* Centraliza os botões de opção */
+}
+
+.options-instruction {
+    color: #333; /* Cor do texto */
+    margin-bottom: 15px; /* Espaçamento abaixo do texto de instrução */
+}
+
+.options-buttons a {
+    display: inline-block; /* Exibe os botões em linha */
+    margin: 10 10px; /* Espaçamento horizontal entre os botões */
+    padding: 10px 30px; /* Padding dentro dos botões */
+    background-color: #761736; /* Cor de fundo dos botões */
+    color: white; /* Cor do texto dos botões */
+    border-radius: 20px; /* Arredondamento das bordas dos botões */
+    font-weight: bold; /* Peso da fonte dos botões */
+    text-decoration: none; /* Remove sublinhado dos links */
+    transition: background-color 0.3s; /* Transição suave para o hover */
+}
+
+.options-buttons a:hover {
+    background-color: #761736; /* Cor de fundo quando o mouse passa por cima */
+}
+
+/* Estilo dos botões de navegação do documento */
+.doc-button {
+    display: inline-block; /* Exibe os botões em linha */
+    margin: 0 10px; /* Espaçamento horizontal entre os botões */
+    padding: 10px 20px; /* Padding dentro dos botões */
+    background-color: #761736; /* Cor de fundo dos botões */
+    color: white; /* Cor do texto dos botões */
+    border-radius: 20px; /* Arredondamento das bordas dos botões */
+    font-weight: bold; /* Peso da fonte dos botões */
+    text-decoration: none; /* Remove sublinhado dos links */
+    transition: background-color 0.3s; /* Transição suave para o hover */
+}
+
+.doc-button:hover {
+    background-color: #761736; /* Cor de fundo quando o mouse passa por cima */
+}
+
+/* Ajustes no contêiner de conteúdo principal */
+.content-container {
+    padding: 20px; /* Espaçamento interno do contêiner */
+    text-align: center; /* Centraliza o conteúdo do contêiner */
+}
+
+/* Estilos para a opção de botões */
+/* (Mantenha os estilos da sua classe .options-buttons a aqui) */
+/* Conteúdo principal e elementos de autenticação */
+.content-container {
+    text-align: center; /* Centraliza o conteúdo */
+}
+
+.document-image {
+    margin-bottom: 20px; /* Espaço abaixo da imagem do documento */
+}
+
+.navigation-buttons {
+    margin-bottom: 20px; /* Espaço abaixo dos botões de navegação */
+}
+
+.option-button {
+    display: inline-block; /* Exibe os botões em linha */
+    margin: 0 10px; /* Espaçamento horizontal entre os botões */
+    padding: 10px 30px; /* Padding dentro dos botões */
+    background-color: #761736; /* Cor de fundo dos botões */
+    color: white; /* Cor do texto dos botões */
+    border-radius: 20px; /* Arredondamento das bordas dos botões */
+    font-weight: bold; /* Peso da fonte dos botões */
+    text-decoration: none; /* Remove sublinhado dos links */
+    transition: background-color 0.3s; /* Transição suave para o hover */
+}
+
+.option-button:hover {
+    background-color: #761736; /* Cor de fundo quando o mouse passa por cima */
+}
+
+.options-container {
+    margin-top: 20px; /* Espaçamento acima da barra de opções */
+}
+
+

@@ -1,39 +1,50 @@
-{extends header.html}
+{% extends "base/header.html" %}
 
-{% if request.user.is_authenticated %}
-<p>Hello {{request.user}}!</p>
-<a href="{% url 'logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}">Login</a>
-{% endif %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Document</title>
-</head>
-<body>
-    <h1>Document Details</h1>
-    <p><strong>Title:</strong> {{ document.doc_title }}</p>
-    <p><strong>Date:</strong> {{ document.doc_date }}</p>
-    <p><strong>Type:</strong> {{ type }}</p>
-
-    {% if type == 'pdf' %}
-        <embed src="{{ document.doc.url }}" width="800px" height="600px" />
-    {% elif type == 'mp4' %}
-        <video width="800" height="600" controls>
-            <source src="{{ document.doc.url }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    {% elif type == 'mp3' %}
-        <audio controls>
-            <source src="{{ document.doc.url }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    {% else %}
-        <p>No preview available for this document type.</p>
+<div class="content-container">
+    {% if doc_id != None %}
+    <div style="margin-bottom: 10px"><a href="{% url 'show-doc-randomize' %}" class="option-button">Mudar arquivo <i class="fas fa-sync-alt"></i></a></div>
     {% endif %}
-</body>
-</html>
+    {% for image in image_data %}
+    <div class="document-image">
+        <img src="data:image/png;base64,{{ image }}" alt="Document Page">
+    </div>
+    {% endfor %}
+    <div class="navigation-buttons">
+        {% if doc_id == None %}
+            <a href="{% url 'show-doc-randomize' %}" class="option-button">Começar</a>
+        {% endif %}
+        
+        {% if doc_id != None and total_pages != 1%}
+        <h2>{{current_page}}/{{total_pages}}</h2>
+        {% endif %}
+        {% if current_page > 1 %}
+        <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'-1' %}" class="option-button">
+            <!-- Back Arrow Icon -->
+            &larr; <!-- Leftward arrow -->
+        </a>
+    {% endif %}
+    
+    {% if total_pages != 1 and total_pages != current_page %}
+        <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'1' %}" class="option-button">
+            <!-- Forward Arrow Icon -->
+            &rarr; <!-- Rightward arrow -->
+        </a>
+    {% endif %}
+    
+    </div>
+    {% if doc_id != None%}
+    <div class="options-container">
+        <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
+        <div class="options-buttons">
+            <a href="#titulo" class="option-button">Título</a>
+            <a href="#data" class="option-button">Data</a>
+            <a href="#descricao" class="option-button">Descrição</a>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

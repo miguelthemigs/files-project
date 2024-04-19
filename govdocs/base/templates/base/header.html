@@ -3,28 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviv Documentos</title>
+    <title>VIV.BR</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-jjiajskgyuWE0/jaXH4V5UzNwgvvgT0aZgp1QD1L8rHIp57W4+H4R0sUCZRV5S+" crossorigin="anonymous">
+
 </head>
 <body>
     <header>
         <div class="header-container">
             <div class="header-left">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_Arquivo_Nacional.png" alt="Logo">
+                <a href="{% url 'home' %}">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_Arquivo_Nacional.png" alt="Logo">
+                </a>
+                
             </div>
             <div class="header-middle">
-                <h1>Aviv Documentos</h1>
+                <h1>AVIVDOCUMENTOSBRASIL.BR</h1>
             </div>
             <div class="header-right">
-                <a href="/profile">Perfil</a>
+               
+                <div class="authentication-container">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'profile' user.id %}">Perfil</a>
+                    <a href="{% url 'logout' %}" class="auth-button logout-button">Logout</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="auth-button login-button">Login</a>
+                    {% endif %}
+                </div>
             </div>
+          
         </div>
     </header>
 
     {% block content %}
-
+    <!-- O conteúdo adicional será inserido aqui pelas páginas que estendem este template -->
     {% endblock %}
-    
+
 </body>
 </html>

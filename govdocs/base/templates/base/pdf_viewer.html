@@ -15,6 +15,17 @@
         <img src="data:image/png;base64,{{ image }}" alt="Document Page">
     </div>
     {% endfor %}
+    <div>
+        {% if current_page > 1 %}
+            <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'-1' %}">Back</a>
+        {% endif %}
+        {% if total_pages != 1 and total_pages != current_page %}
+            <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'1' %}">Forward</a>
+        {% endif %}
+
+        <a href="{% url 'show-doc-randomize' %}">Refresh</a>
+        
+    </div>
 </body>
 </html>
 {% endblock %}
