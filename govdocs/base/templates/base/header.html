@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -15,13 +17,13 @@
                 <a href="{% url 'home' %}">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_Arquivo_Nacional.png" alt="Logo">
                 </a>
-                
+
             </div>
             <div class="header-middle">
-                <h1>AVIVDOCUMENTOSBRASIL.BR</h1>
+                <h1>Viva Documentos</h1>
             </div>
             <div class="header-right">
-               
+
                 <div class="authentication-container">
                     {% if request.user.is_authenticated %}
                     <a href="{% url 'profile' user.id %}">Perfil</a>
@@ -31,47 +33,46 @@
                     {% endif %}
                 </div>
             </div>
-          
+
         </div>
     </header>
 
     {% block content %}
     {% endblock %}
-<script>
-
-
-const zoomableImage = document.getElementById('zoomableImage');
-let scale = 1;
-let mouseX = 0;
-let mouseY = 0;
-
-zoomableImage.addEventListener('wheel', (event) => {
-    event.preventDefault(); 
-
-    const zoomIntensity = 0.1; 
-    const delta = event.deltaY > 0 ? -zoomIntensity : zoomIntensity;
-
-    const rect = zoomableImage.getBoundingClientRect();
-    mouseX = (event.clientX - rect.left) / rect.width;
-    mouseY = (event.clientY - rect.top) / rect.height;
-
-    scale += delta;
-
-    scale = Math.min(Math.max(1, scale), 10);
-
-    zoomableImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
-    zoomableImage.style.transform = `scale(${scale})`;
-
-    if (delta > 0) {
-        document.documentElement.style.cursor = 'zoom-in';
-    } else if (delta < 0 && scale > 1) {
-        document.documentElement.style.cursor = 'zoom-out';
-    } else {
-        document.documentElement.style.cursor = 'auto';
-    }
-});
-
-
-</script>
+    <script>
+        const zoomableImage = document.getElementById('zoomableImage');
+        let scale = 1;
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        zoomableImage.addEventListener('wheel', (event) => {
+            event.preventDefault(); 
+        
+            const zoomIntensity = 0.1; 
+            const delta = event.deltaY > 0 ? -zoomIntensity : zoomIntensity;
+        
+            const rect = zoomableImage.getBoundingClientRect();
+            mouseX = (event.clientX - rect.left) / rect.width;
+            mouseY = (event.clientY - rect.top) / rect.height;
+        
+            scale += delta;
+        
+            scale = Math.min(Math.max(1, scale), 10);
+        
+            zoomableImage.style.transformOrigin = `${mouseX * 100}% ${mouseY * 100}%`;
+            zoomableImage.style.transform = `scale(${scale})`;
+        
+            if (delta > 0) {
+                document.documentElement.style.cursor = 'zoom-in';
+            } else if (delta < 0 && scale > 1) {
+                document.documentElement.style.cursor = 'zoom-out';
+            } else {
+                document.documentElement.style.cursor = 'auto';
+            }
+        });
+        
+        
+    </script>
 </body>
+
 </html>

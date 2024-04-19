@@ -11,6 +11,7 @@ from pdf2image import convert_from_path
 import tempfile
 from django.contrib import messages
 from .forms import InputLogForm
+import json
 
 
 # Create your views here.
@@ -87,7 +88,26 @@ def userProfile(request, pk):
 def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
     if request.method == 'POST':
         form = InputLogForm(request.POST)
-        if form.is_valid():
+        # Parse the JSON data from the POST request
+        tags_json = request.POST.get('tags')
+        if tags_json:
+            tag_list = json.loads(tags_json)
+            for tag in tag_list:
+                print("TAGLEGAL:", tag)
+                form_data = {'input_content': tag, 'input_type': input_type}
+                form = InputLogForm(form_data)
+                if form.is_valid():
+                    print("TAG FODAAAAA:", tag)
+                    input_log = form.save(commit=False)
+                    input_log.user_id = request.user.id
+                    input_log.input_type = input_type
+                    input_log.input_score = 0
+                    input_log.doc_id = get_object_or_404(Document, doc_id=doc_id) 
+                    input_log.save()
+                    
+            return redirect('show-doc-randomize')
+                    
+        elif form.is_valid():
             input_log = form.save(commit=False)
             input_log.user_id = request.user.id
             input_log.doc_id = get_object_or_404(Document, doc_id=doc_id)
@@ -100,7 +120,7 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
                 user_points.points += 100
                 user_points.save()
                 
-            return redirect('home')
+            return redirect('show-doc-randomize')
     if randomize:
         # Retrieve a random document that is not audiovisual (0) or sonoro (3)
         documents_length = Document.objects.count()
@@ -115,7 +135,6 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
     else:
         # Retrieve the specified document
         document = get_object_or_404(Document, doc_id=doc_id)
-
     pdf_path = document.doc.path
     pdf = PdfReader(pdf_path)
     page = pdf.pages[page_number-1]
@@ -157,3 +176,5 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
             'current_page': page_number
         })
         
+def validar(request):
+    pass

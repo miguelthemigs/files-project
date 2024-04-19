@@ -12,64 +12,68 @@
 
         <img src="data:image/png;base64,{{ image }}" alt="Document Page" id="zoomableImage">
 
-    
 
     </div>
-    
+
     {% endfor %}
-    
+
     <div class="navigation-buttons">
         {% if doc_id == None %}
-        <div class= "inicio">
+        <div class="inicio">
             <h>Ganhe pontos escrevendo informações sobre documentos!</h1>
-            <p>A cada informação ganhe 100 pontos!</p>
-            <div>
-            <a href="{% url 'show-doc-randomize' %}" class="option-button">Começar</a>
-            <div>
-        {% endif %}
-        {% if current_page > 1 and input_type == None %}
-        <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'-1' %}" class="option-button">
-            <!-- Back Arrow Icon -->
-            &larr; <!-- Leftward arrow -->
-        </a>
-    {% endif %}
-    {% if current_page > 1 and input_type != None %}
-    <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'-1' input_type=input_type %}" class="option-button">
-        <!-- Back Arrow Icon -->
-        &larr; <!-- Leftward arrow -->
-    </a>
-{% endif %}
-        {% if doc_id != None and total_pages != 1%}
-        <h2>{{current_page}}/{{total_pages}}</h2>
-        {% endif %}
-        {% if total_pages != 1 and total_pages != current_page and input_type == None %}
-        <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'1' %}" class="option-button">
-            <!-- Forward Arrow Icon -->
-            &rarr; <!-- Rightward arrow -->
-        </a>
-    {% endif %}
-    
-    {% if total_pages != 1 and total_pages != current_page and input_type != None %}
-    <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'1' input_type=input_type %}" class="option-button">
-        <!-- Forward Arrow Icon -->
-        &rarr; <!-- Rightward arrow -->
-    </a>
-{% endif %}
-    
-    {% block content_1 %}
-        </div>
-        {% if doc_id != None%}
-        <div class="options-container">
-            <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
-            <div class="options-buttons">
-                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 %}" class="option-button">Título</a>
-                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 %}" class="option-button">Data</a>
-                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 %}" class="option-button">Descrição</a>
-            </div>
-        </div>
-        {% endif %}
-    {% endblock %}
+                <p>A cada informação ganhe 100 pontos!</p>
+                <div>
+                    <a href="{% url 'show-doc-randomize' %}" class="option-button">Começar</a>
+                    <div>
+                        {% endif %}
+                        {% if current_page > 1 and input_type == None %}
+                        <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'-1' %}" class="option-button">
 
-</div>
+                            &larr;
+                        </a>
+                        {% endif %}
+                        {% if current_page > 1 and input_type != None %}
+                        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'-1' input_type=input_type %}" class="option-button">
 
-{% endblock %}
+                            &larr;
+                        </a>
+                        {% endif %}
+                        {% if doc_id != None and total_pages != 1%}
+                        <h2>{{current_page}}/{{total_pages}}</h2>
+                        {% endif %}
+                        {% if total_pages != 1 and total_pages != current_page and input_type == None %}
+                        <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'1' %}" class="option-button">
+                            <!-- Forward Arrow Icon -->
+                            &rarr;
+                            <!-- Rightward arrow -->
+                        </a>
+                        {% endif %}
+
+                        {% if total_pages != 1 and total_pages != current_page and input_type != None %}
+                        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'1' input_type=input_type %}" class="option-button">
+                            <!-- Forward Arrow Icon -->
+                            &rarr;
+                            <!-- Rightward arrow -->
+                        </a>
+                        {% endif %}
+
+                        {% block content_1 %}
+                    </div>
+                    {% if doc_id != None%}
+                    <div class="options-container">
+                        <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
+                        <div class="options-buttons">
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 %}" class="option-button">Título</a>
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 %}" class="option-button">Data</a>
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 %}" class="option-button">Descrição</a>
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=4 %}" class="option-button">Tema</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endblock %}
+
+                </div>
+
+                {% block javascript %}
+                {% endblock %}
+                {% endblock %}

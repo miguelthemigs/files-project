@@ -7,7 +7,7 @@
 
 .profile-picture-container {
     margin: 20px auto;
-    width: 150px; /* Ou o tamanho que deseja para a foto do perfil */
+    width: 150px; 
     height: 150px;
     border-radius: 50%; /* Cria um círculo em torno da foto do perfil */
     overflow: hidden; /* Garante que a imagem não saia fora do círculo */

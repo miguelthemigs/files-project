@@ -40,7 +40,7 @@ header {
     color: #333;
     font-weight: bold;
     padding: 12px 24px;
-    background-color: #e0e0e0;
+    background-color: #c7c7c7;
     border-radius: 6px;
     font-size: 18px;
     display: inline-block;
@@ -59,7 +59,7 @@ header {
 }
 
 .header-right a:hover {
-    background-color: #ccc;
+    background-color: #8d8d8d;
 }
 
 /* Conteúdo principal e elementos de autenticação */
@@ -68,6 +68,49 @@ header {
 }
 
 
+
+.options-buttons a, input[type="submit"] {
+    display: inline-block;
+    color: white;
+    padding: 10px 15px;  /* Ajuste para parecer mais quadrado */
+    text-decoration: none;
+    border-radius: 3px;  /* Mais quadrado */
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    width: 160px;  /* Largura fixa para uniformidade */
+}
+.options-buttons a:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+form p {
+    margin-bottom: 10px;
+}
+input[type="text"], textarea {
+    width: 30%; 
+    height: 100px; /* Ajuste de largura para preencher o contêiner */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;  /* Mais quadrado */
+}
+
+
+.tag {
+    display: inline-block;
+    background-color: #8B0000;
+    color: #fff;
+    padding: 4px 8px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tag:hover {
+    background-color: #0056b3;
+}
 
 .authentication-container {
     display: flex;
@@ -154,9 +197,10 @@ header {
 
 .navigation-buttons {
     margin-bottom: 20px; /* Espaço abaixo dos botões de navegação */
-    display: flex;
-    align-items: center;  /* Align items vertically in the center */
-    padding: 10px;  /* Add some padding around the container */
+}
+
+.navigation-buttons > * {
+    display: inline;
 }
 
 .option-button {

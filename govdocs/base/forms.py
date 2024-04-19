@@ -13,3 +13,6 @@ class InputLogForm(forms.ModelForm):
         model = InputLog
         fields = '__all__' 
         exclude = ['input_id', 'user', 'doc_id', 'input_type']
+
+class TagForm(forms.Form):
+    tag = forms.CharField(max_length=100)

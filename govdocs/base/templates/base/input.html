@@ -1,71 +1,100 @@
 {% extends "base/home.html" %}
-
 {% block content_1 %}
-<style>
-
-    .options-buttons a, input[type="submit"] {
-        display: inline-block;
-        color: white;
-        padding: 10px 15px;  /* Ajuste para parecer mais quadrado */
-        text-decoration: none;
-        border-radius: 3px;  /* Mais quadrado */
-        font-size: 16px;
-        margin: 10px 0;
-        cursor: pointer;
-        border: none;
-        transition: background-color 0.3s ease;
-        width: 160px;  /* Largura fixa para uniformidade */
-    }
-    .options-buttons a:hover, input[type="submit"]:hover {
-        background-color: #0056b3;
-    }
-    form p {
-        margin-bottom: 10px;
-    }
-    input[type="text"], textarea {
-        width: 30%; 
-        height: 100px; /* Ajuste de largura para preencher o contêiner */
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;  /* Mais quadrado */
-    }
-
-</style>
-
 {% if input_type != None %}
-    <div class="options-container">
-        {% if input_type == 0 %}
-            <h2>Qual o titulo do documento?</h2>
-            <form method="POST" action="">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Enviar" class="option-button"/>
-            </form>
-        {% elif input_type == 1 %}
-            <h2>Qual a data do documento?</h2>
-            <form method="POST" action="">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Enviar" class="option-button"/>
-            </form>
-        {% elif input_type == 2 %}
-            <h2>Descreva o documento?</h2>
-            <form method="POST" action="">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Enviar" class="option-button"/>
-            </form>
-        {% endif %}
-    </div>
-{% else %}
-    <div class="options-container">
-        <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
-        <div class="options-buttons">
-            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 %}" class="option-button">Título</a>
-            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 %}" class="option-button">Data</a>
-            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 %}" class="option-button">Descrição</a>
-        </div>
-    </div>
-{% endif %}
 
+<div class="options-container">
+    {% if input_type == 0 %}
+    <h2>Qual o titulo do documento?:</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar" class="option-button" />
+    </form>
+    {% elif input_type == 1 %}
+    <h2>Qual a data do documento?:</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar" class="option-button" />
+    </form>
+    {% elif input_type == 2 %}
+    <h2>Descreva o documento:</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Enviar" class="option-button" />
+    </form>
+
+    {% elif input_type == 4 %}
+    <h2>Defina temas para o documento:</h2>
+    <form id="tagForm" method="POST">
+        {% csrf_token %}
+        <div id="tagContainer">
+            <input type="text" id="tagInput" placeholder="Adicione as tags" />
+        </div>
+        <input type="submit" value="Enviar" class="option-button"/>
+    </form>
+    {% endif %}
+
+</div>
+{% else %}
+<div class="options-container">
+    <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
+    <div class="options-buttons">
+        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 %}" class="option-button">Título</a>
+        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 %}" class="option-button">Data</a>
+        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 %}" class="option-button">Descrição</a>
+        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=4 %}" class="option-button">Tema</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block javascript %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tagInput = document.getElementById('tagInput');
+        var tagContainer = document.getElementById('tagContainer');
+        var form = document.getElementById('tagForm');
+        var tags = [];
+
+        tagInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                var tagValue = tagInput.value.trim();
+
+                if (tagValue && !tags.includes(tagValue)) {
+                    tags.push(tagValue);
+                    var tagSpan = document.createElement('span');
+                    tagSpan.textContent = tagValue + " ×";
+                    tagSpan.classList.add('tag'); 
+                    tagSpan.onclick = function() {
+                        tags = tags.filter(function(tag) {
+                            return tag !== tagValue;
+                        });
+                        tagContainer.removeChild(tagSpan);
+                    };
+                    tagContainer.insertBefore(tagSpan, tagInput);
+                    tagInput.value = '';
+                }
+            }
+        });
+
+        form.onsubmit = function(e) {
+            e.preventDefault();
+            // Here you can send the tags array to the server
+            // For example, by appending it to the form data or sending via AJAX.
+            console.log(tags); // This will log the current tags to the console.
+            // You might convert tags array to JSON and assign to a hidden input value
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'tags');
+            hiddenInput.setAttribute('value', JSON.stringify(tags));
+            form.appendChild(hiddenInput);
+
+            // Finally, submit the form.
+            // Remove this line if you're sending the data using AJAX.
+            form.submit();
+        };
+    });
+</script>
 {% endblock %}

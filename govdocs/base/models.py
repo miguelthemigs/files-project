@@ -29,6 +29,8 @@ class InputLog(models.Model):
     input_type = models.IntegerField(default=None)
     # Conteudo enviado
     input_content = models.TextField()
+    # Pontos da resposta em questao
+    input_score = models.IntegerField(default=0)
 
 class Document(models.Model):
     doc = models.FileField()
