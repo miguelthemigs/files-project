@@ -12,7 +12,7 @@ class InputLogForm(forms.ModelForm):
     class Meta:
         model = InputLog
         fields = '__all__' 
-        exclude = ['input_id', 'user', 'doc_id', 'input_type']
+        exclude = ['input_id', 'user', 'doc_id', 'input_type','input_score']
 
 class TagForm(forms.Form):
     tag = forms.CharField(max_length=100)

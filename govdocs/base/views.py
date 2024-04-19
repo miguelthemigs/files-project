@@ -85,42 +85,37 @@ def userProfile(request, pk):
 
 
 
-def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
+def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None, input_id=None):
     if request.method == 'POST':
-        form = InputLogForm(request.POST)
-        # Parse the JSON data from the POST request
         tags_json = request.POST.get('tags')
         if tags_json:
             tag_list = json.loads(tags_json)
             for tag in tag_list:
-                print("TAGLEGAL:", tag)
                 form_data = {'input_content': tag, 'input_type': input_type}
                 form = InputLogForm(form_data)
                 if form.is_valid():
-                    print("TAG FODAAAAA:", tag)
                     input_log = form.save(commit=False)
                     input_log.user_id = request.user.id
+                    input_log.doc_id = get_object_or_404(Document, pk=doc_id)
                     input_log.input_type = input_type
-                    input_log.input_score = 0
-                    input_log.doc_id = get_object_or_404(Document, doc_id=doc_id) 
                     input_log.save()
-                    
             return redirect('show-doc-randomize')
-                    
-        elif form.is_valid():
-            input_log = form.save(commit=False)
-            input_log.user_id = request.user.id
-            input_log.doc_id = get_object_or_404(Document, doc_id=doc_id)
-            input_log.input_type = input_type
-            input_log.input_content = form.cleaned_data['input_content']
-            input_log.save()
-            
-            if request.user.is_authenticated:
-                user_points, created = UserPoints.objects.get_or_create(user=request.user)
-                user_points.points += 100
-                user_points.save()
-                
-            return redirect('show-doc-randomize')
+        else:
+            form = InputLogForm(request.POST)
+            if form.is_valid():
+                input_log = form.save(commit=False)
+                input_log.user_id = request.user.id
+                input_log.doc_id = get_object_or_404(Document, pk=doc_id)
+                input_log.input_type = input_type
+                input_log.save()
+
+                if request.user.is_authenticated:
+                    user_points, created = UserPoints.objects.get_or_create(user=request.user)
+                    user_points.points += 100
+                    user_points.save()
+
+                return redirect('show-doc-randomize')
+
     if randomize:
         # Retrieve a random document that is not audiovisual (0) or sonoro (3)
         documents_length = Document.objects.count()
@@ -130,11 +125,12 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
             if document.doc_type not in [0, 3]:
                 doc_id = document.doc_id
                 break
-        # Redirect to the document-specific URL with the first page
         return redirect('show-doc-page', doc_id=doc_id, page_number=1)
+        
     else:
         # Retrieve the specified document
         document = get_object_or_404(Document, doc_id=doc_id)
+
     pdf_path = document.doc.path
     pdf = PdfReader(pdf_path)
     page = pdf.pages[page_number-1]
@@ -159,14 +155,41 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
             image_data.append(encoded_string)
     form = InputLogForm()
     if input_type is not None:
-        return render(request, 'base/input.html', {
-        'image_data': image_data,
-        'total_pages': len(pdf.pages),
-        'doc_id': doc_id,
-        'current_page': page_number,
-        'input_type': input_type,
-        'form': form,
-        }, )
+        if input_type != 4:
+            return render(request, 'base/input.html', {
+            'image_data': image_data,
+            'total_pages': len(pdf.pages),
+            'doc_id': doc_id,
+            'current_page': page_number,
+            'input_type': input_type,
+            'form': form,
+            }, )
+        else:
+            aleatorio = random.randint(0,1)
+            input_object = InputLog.objects.filter(input_type=4, doc_id=doc_id)
+            if len(input_object) == 0:
+                aleatorio = 1
+            input_object = input_object[0]
+
+            if aleatorio:
+                return render(request, 'base/input.html', {
+                'image_data': image_data,
+                'total_pages': len(pdf.pages),
+                'doc_id': doc_id,
+                'current_page': page_number,
+                'input_type': input_type,
+                'form': form,
+                }, )
+            else:
+                return render(request, 'base/avaliar.html', {
+                'image_data': image_data,
+                'total_pages': len(pdf.pages),
+                'doc_id': doc_id,
+                'current_page': page_number,
+                'input_type': input_type,
+                'input_id': input_object.input_id,
+                'input_content':input_object.input_content,
+                }, )
     
     else:
         return render(request, 'base/home.html', {
@@ -176,5 +199,3 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
             'current_page': page_number
         })
         
-def validar(request):
-    pass
