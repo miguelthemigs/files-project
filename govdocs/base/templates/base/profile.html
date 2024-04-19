@@ -10,8 +10,25 @@
     <h1>{{ user.username }}</h1>
     <p>Pontos: {{ points }}</p>
     <!-- Adicione a parte da foto do perfil aqui, se você já tiver uma URL para a foto -->
+
+     <!-- Emblemas -->
+     <div class="badges-container">
+        <h2>Emblemas:</h2>
+        {% for badge_score in badge_scores %}
+            <div class="badge">
+                {% if badge_score == 150 %}
+                <img src="{% static 'images/badge/150.png' %}" alt="{{ badge_score }} Pontos">
+            {% endif %}
+            {% if badge_score == 500 %}
+                <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos">
+            {% endif %}
+            {% if badge_score == 1000 %}
+            <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos" class="badge-image.not-achieved">
+                <span>{{ badge_score }}</span>
+            {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
-
 {% endblock %}
-

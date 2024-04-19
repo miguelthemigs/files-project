@@ -2,11 +2,14 @@ from django import forms
 from .models import InputLog, Document, User  # Ajuste os imports conforme necessário
 
 class InputLogForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(InputLogForm, self).__init__(*args, **kwargs)
+        # Check conditions and set label accordingly
+        if True:
+            self.fields['input_content'].label = ''
+
     class Meta:
         model = InputLog
-        fields = ['doc_id', 'user_id', 'input_type', 'input_content']
-        widgets = {
-            'doc_id': forms.HiddenInput(),
-            'user_id': forms.HiddenInput(),
-            'input_type': forms.HiddenInput(),
-        }
+        fields = '__all__' 
+        exclude = ['input_id', 'user', 'doc_id', 'input_type']

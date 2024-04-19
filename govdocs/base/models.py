@@ -23,7 +23,7 @@ class InputLog(models.Model):
     # Documento em questao
     doc_id = models.ForeignKey('Document', on_delete=models.CASCADE)
     # Usuario responsavel pela resposta
-    user_id = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     # Tipo de dado enviado (Titulo: 0 , Data: 1, Ambito e Conteudo: 2, Pontos de indexacao: 3)
     input_type = models.IntegerField(default=None)

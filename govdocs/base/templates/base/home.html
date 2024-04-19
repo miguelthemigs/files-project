@@ -3,6 +3,7 @@
 {% block content %}
 
 <div class="content-container">
+
     {% if doc_id != None %}
     <div style="margin-bottom: 10px"><a href="{% url 'show-doc-randomize' %}" class="option-button">Mudar arquivo <i class="fas fa-sync-alt"></i></a></div>
     {% endif %}
@@ -14,7 +15,12 @@
     {% endfor %}
     <div class="navigation-buttons">
         {% if doc_id == None %}
+        <div class= "inicio">
+            <h>Ganhe pontos escrevendo informações sobre documentos!</h1>
+            <p>A cada informação ganhe 100 pontos!</p>
+            <div>
             <a href="{% url 'show-doc-randomize' %}" class="option-button">Começar</a>
+            <div>
         {% endif %}
         
         {% if doc_id != None and total_pages != 1%}

@@ -19,3 +19,32 @@
     height: auto;
     display: block; /* Remove qualquer espaço extra em torno da imagem */
 }
+
+.badges-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens passem para a próxima linha se necessário */
+    justify-content: center; /* Centraliza os emblemas horizontalmente */
+    gap: 10px; /* Espaçamento entre os emblemas */
+}
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto; /* Não permite que os emblemas cresçam ou encolham */
+    margin: 5px; /* Margem ao redor de cada emblema */
+}
+
+
+.badge-image.not-achieved {
+    filter: grayscale(100%);
+}
+
+
+/* Aumenta a opacidade para emblemas conquistados para destacá-los mais */
+.badge-image.achieved {
+    filter: none; /* Remove o filtro de escala de cinza */
+    opacity: 1; /* Restaura a opacidade total */
+}
+
+

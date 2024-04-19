@@ -68,6 +68,7 @@ def registerPage(request):
 def userProfile(request, pk):
     user = get_object_or_404(User, id=pk)
     user_points, created = UserPoints.objects.get_or_create(user=user, defaults={'points': 0})
+    badge_scores = [150, 500, 1000]
     '''
     Tente obter a pontuação para o user especificado.
     Se essa pontuação não existir, crie uma nova pontuação para esse user com points inicializados em 0.
@@ -76,84 +77,30 @@ def userProfile(request, pk):
     '''
     context = {
         'user': user,
-        'points': user_points.points  # Adiciona os pontos ao contexto
+        'points': user_points.points,  # Adiciona os pontos ao contexto
+        'badge_scores': badge_scores,
     }
     return render(request, 'base/profile.html', context)
 
-# def add_title_date_feedback(request, doc_id):
-#     if request.method == 'POST':
-#         form = InputLogForm(request.POST)
-#         if form.is_valid():
-#             input_log = form.save(commit=False)
-#             # Defina 'user_id' como o usuário atualmente logado.
-#             input_log.user_id = User.objects.get(id=request.user.id)
-#             # Defina 'doc_id' conforme necessário, aqui é apenas um exemplo.
-#             input_log.doc_id = get_object_or_404(Document, pk=doc_id)
-#             input_log.save()
-#             return redirect('home')
-#         else:
-#             form = InputLogForm()
-
-#         context = {
-#         'form': form,
-#         'doc_id': doc_id,
-#     }
-        
-#     return render(request, 'base/title_date_feedback.html')
-    
-
-    
-# Random para gerar um numero aleatorio de 0 ate o tamanho do banco
-# Pega o doc_id, com isso pega o doc_type e para cada doctype(AUDIOVISUAL: mp4;CARTOGRAFICO: pdf ;ICONOGRAFICO: pdf ;SONORO:mp3 ;TEXTUAL: pdf ) e trata diferente para cada.
-'''
-def show_doc(request, doc_id):
-    doc_id = 'BR_RJANRIO_04_0_MAP_00570_d0001de0001'
-    table_length = Document.objects.count()
-    random_id = random.randint(0,table_length)
-    random_document = Document.objects.get(doc_id=random_id)
-    doc_type = random_document.doc_type
-    print("\n\n\nTESTE")
-    print(doc_type)
-    print("TESTE\n\n\n")
-    if random_document.doc_type:
-        doc_type_mapping = {
-            0: "mp4",
-            1: "pdf",
-            2: "pdf",
-            3: "mp3",
-            4: "pdf"
-        }
-    if doc_type in doc_type_mapping:
-       document_type = doc_type_mapping[doc_type] 
-    return render(request, 'base/home.html', {'document': random_document, 'type': document_type})
-'''
-
-#WORKED
-# def show_doc(request, doc_id, page_number=1):
-#     document = get_object_or_404(Document, doc_id=doc_id)
-#     # Open the PDF file
-#     pdf_content = document.doc.open('rb')
-    
-#     # Convert PDF to images (each page becomes an image)
-#     images = convert_from_path(pdf_content.name, dpi=50, first_page=page_number, last_page=page_number, poppler_path=r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')
-    
-#     image_data = []
-#     for image in images:
-#         with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp:
-#             image.save(temp.name, 'PNG')
-#             temp.seek(0)
-#             encoded_string = base64.b64encode(temp.read()).decode('utf-8')
-#             image_data.append(encoded_string)
-
-#     return render(request, 'base/pdf_viewer.html', {
-#         'image_data': image_data,
-#         'doc_id': doc_id,
-#         'current_page': page_number
-#     })
-    
 
 
 def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
+    if request.method == 'POST':
+        form = InputLogForm(request.POST)
+        if form.is_valid():
+            input_log = form.save(commit=False)
+            input_log.user_id = request.user.id
+            input_log.doc_id = get_object_or_404(Document, doc_id=doc_id)
+            input_log.input_type = input_type
+            input_log.input_content = form.cleaned_data['input_content']
+            input_log.save()
+            
+            if request.user.is_authenticated:
+                user_points, created = UserPoints.objects.get_or_create(user=request.user)
+                user_points.points += 100
+                user_points.save()
+                
+            return redirect('home')
     if randomize:
         # Retrieve a random document that is not audiovisual (0) or sonoro (3)
         documents_length = Document.objects.count()
@@ -182,7 +129,7 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
     dpi = int(target_pixel_height / height_in_inches)
 
     # Convert the specified PDF page to an image at calculated DPI
-    images = convert_from_path(pdf_path, first_page=page_number, last_page=page_number, dpi=dpi, poppler_path = r'C:\Users\cance\OneDrive\PUC\HackathAN top 1 from brazil\Codigo\files-project\poppler-24.02.0\Library\bin')#poppler_path=r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')
+    images = convert_from_path(pdf_path, first_page=page_number, last_page=page_number, dpi=dpi, poppler_path = r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')#poppler_path=r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')
 
     image_data = []
     for image in images:
@@ -191,15 +138,16 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
             temp.seek(0)
             encoded_string = base64.b64encode(temp.read()).decode('utf-8')
             image_data.append(encoded_string)
-
+    form = InputLogForm()
     if input_type is not None:
         return render(request, 'base/input.html', {
         'image_data': image_data,
         'total_pages': len(pdf.pages),
         'doc_id': doc_id,
         'current_page': page_number,
-        'input_type': input_type
-        })
+        'input_type': input_type,
+        'form': form,
+        }, )
     
     else:
         return render(request, 'base/home.html', {
@@ -208,3 +156,4 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
             'doc_id': doc_id,
             'current_page': page_number
         })
+        
