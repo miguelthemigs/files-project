@@ -15,19 +15,27 @@
      <div class="badges-container">
         <h2>Emblemas:</h2>
         {% for badge_score in badge_scores %}
-            <div class="badge">
-                {% if badge_score == 150 %}
-                <img src="{% static 'images/badge/150.png' %}" alt="{{ badge_score }} Pontos">
+        <div class="badge">
+            {% if badge_score == 150 and points >= 150 %}
+                <img src="{% static 'images/badge/150.png' %}" alt="{{ badge_score }} Pontos" class="image.achieved">
+            {% elif badge_score == 150 and points < 150 %}
+                <img src="{% static 'images/badge/150.png' %}" alt="{{ badge_score }} Pontos" class="image.not-achieved" style="opacity: 0.1;">
             {% endif %}
-            {% if badge_score == 500 %}
-                <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos">
+    
+            {% if badge_score == 500 and points >= 500 %} 
+                <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos" class="image.achieved">
+            {% elif badge_score == 500 and points < 500 %}
+                <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos" class="image.not-achieved" style="opacity: 0.1;">
             {% endif %}
-            {% if badge_score == 1000 %}
-            <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos" class="badge-image.not-achieved">
-                <span>{{ badge_score }}</span>
+    
+            {% if badge_score == 1000 and points >= 1000 %}
+                <img src="{% static 'images/badge/1000.png' %}" alt="{{ badge_score }} Pontos" class="image.achieved">
+            {% elif badge_score == 1000 and points < 1000 %}
+                <img src="{% static 'images/badge/1000.png' %}" alt="{{ badge_score }} Pontos" class="image.not-achieved" style="opacity: 0.1;">
             {% endif %}
-            </div>
-        {% endfor %}
+        </div>
+    {% endfor %}
+    
     </div>
 </div>
 
