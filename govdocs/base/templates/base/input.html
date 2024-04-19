@@ -1,0 +1,35 @@
+{% extends "base/home.html" %}
+
+{% block content_1 %}
+
+    {% if input_type != None %}
+        <!-- Input type is given, display the question and corresponding input field -->
+        <div class="options-container">
+            
+            {% if input_type == 0 %}
+                <h2>Qual o titulo do documento?</h2>
+                <input type="text" name="title" maxlength="100" />
+            {% elif input_type == 1 %}
+                <h2>Qual a data do documento?</h2>
+                <input type="date" name="date" />
+            {% elif input_type == 2 %}
+                <h2>Descreva o documento?</h2>
+                <textarea name="description" rows="4" cols="50"></textarea>
+            {% endif %}
+
+            <!-- Add your form submission logic here -->
+
+        </div>
+    {% else %}
+        <!-- Input type is not given, display the options -->
+        <div class="options-container">
+            <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
+            <div class="options-buttons">
+                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 %}" class="option-button">Título</a>
+                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 %}" class="option-button">Data</a>
+                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 %}" class="option-button">Descrição</a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

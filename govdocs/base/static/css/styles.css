@@ -5,6 +5,7 @@ body {
     padding-top: 130px; /* Ajuste este valor com base na altura do seu cabeçalho */
 }
 
+
 header {
     background-color: #f8f8f8;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -46,6 +47,17 @@ header {
     transition: background-color 0.3s;
 }
 
+.document-image {
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+    overflow: hidden;
+}
+
+#zoomableImage {
+
+    transition: transform 0.3s ease; /* Smooth transition for zoom effect */
+}
+
 .header-right a:hover {
     background-color: #ccc;
 }
@@ -54,6 +66,8 @@ header {
 .content-container {
     padding: 1em;
 }
+
+
 
 .authentication-container {
     display: flex;

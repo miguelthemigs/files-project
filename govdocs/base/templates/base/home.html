@@ -8,8 +8,9 @@
     {% endif %}
     {% for image in image_data %}
     <div class="document-image">
-        <img src="data:image/png;base64,{{ image }}" alt="Document Page">
+        <img src="data:image/png;base64,{{ image }}" alt="Document Page" id="zoomableImage">
     </div>
+    
     {% endfor %}
     <div class="navigation-buttons">
         {% if doc_id == None %}
@@ -33,17 +34,19 @@
         </a>
     {% endif %}
     
-    </div>
-    {% if doc_id != None%}
-    <div class="options-container">
-        <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
-        <div class="options-buttons">
-            <a href="#titulo" class="option-button">Título</a>
-            <a href="#data" class="option-button">Data</a>
-            <a href="#descricao" class="option-button">Descrição</a>
+    {% block content_1 %}
         </div>
-    </div>
-    {% endif %}
+        {% if doc_id != None%}
+        <div class="options-container">
+            <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
+            <div class="options-buttons">
+                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 %}" class="option-button">Título</a>
+                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 %}" class="option-button">Data</a>
+                <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 %}" class="option-button">Descrição</a>
+            </div>
+        </div>
+        {% endif %}
+    {% endblock %}
 
 </div>
 

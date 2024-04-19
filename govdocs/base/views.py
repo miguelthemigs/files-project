@@ -153,7 +153,7 @@ def show_doc(request, doc_id):
     
 
 
-def show_doc(request, doc_id=None, page_number=1, randomize=0):
+def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None):
     if randomize:
         # Retrieve a random document that is not audiovisual (0) or sonoro (3)
         documents_length = Document.objects.count()
@@ -182,7 +182,7 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0):
     dpi = int(target_pixel_height / height_in_inches)
 
     # Convert the specified PDF page to an image at calculated DPI
-    images = convert_from_path(pdf_path, first_page=page_number, last_page=page_number, dpi=dpi, poppler_path = r'files-project\poppler-24.02.0\Library\bin')#poppler_path=r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')
+    images = convert_from_path(pdf_path, first_page=page_number, last_page=page_number, dpi=dpi, poppler_path = r'C:\Users\cance\OneDrive\PUC\HackathAN top 1 from brazil\Codigo\files-project\poppler-24.02.0\Library\bin')#poppler_path=r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')
 
     image_data = []
     for image in images:
@@ -192,9 +192,19 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0):
             encoded_string = base64.b64encode(temp.read()).decode('utf-8')
             image_data.append(encoded_string)
 
-    return render(request, 'base/home.html', {
+    if input_type is not None:
+        return render(request, 'base/input.html', {
         'image_data': image_data,
         'total_pages': len(pdf.pages),
         'doc_id': doc_id,
-        'current_page': page_number
-    })
+        'current_page': page_number,
+        'input_type': input_type
+        })
+    
+    else:
+        return render(request, 'base/home.html', {
+            'image_data': image_data,
+            'total_pages': len(pdf.pages),
+            'doc_id': doc_id,
+            'current_page': page_number
+        })
