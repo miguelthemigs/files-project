@@ -129,9 +129,11 @@ header {
     transition: background-color 0.3s; /* Transição suave para o hover */
 }
 
+
 .doc-button:hover {
     background-color: #761736; /* Cor de fundo quando o mouse passa por cima */
 }
+
 
 /* Ajustes no contêiner de conteúdo principal */
 .content-container {

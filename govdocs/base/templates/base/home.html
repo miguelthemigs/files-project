@@ -9,7 +9,11 @@
     {% endif %}
     {% for image in image_data %}
     <div class="document-image">
+
         <img src="data:image/png;base64,{{ image }}" alt="Document Page" id="zoomableImage">
+
+    
+
     </div>
     
     {% endfor %}
@@ -22,23 +26,34 @@
             <a href="{% url 'show-doc-randomize' %}" class="option-button">Começar</a>
             <div>
         {% endif %}
-        
-        {% if doc_id != None and total_pages != 1%}
-        <h2>{{current_page}}/{{total_pages}}</h2>
-        {% endif %}
-        {% if current_page > 1 %}
+        {% if current_page > 1 and input_type == None %}
         <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'-1' %}" class="option-button">
             <!-- Back Arrow Icon -->
             &larr; <!-- Leftward arrow -->
         </a>
     {% endif %}
-    
-    {% if total_pages != 1 and total_pages != current_page %}
+    {% if current_page > 1 and input_type != None %}
+    <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'-1' input_type=input_type %}" class="option-button">
+        <!-- Back Arrow Icon -->
+        &larr; <!-- Leftward arrow -->
+    </a>
+{% endif %}
+        {% if doc_id != None and total_pages != 1%}
+        <h2>{{current_page}}/{{total_pages}}</h2>
+        {% endif %}
+        {% if total_pages != 1 and total_pages != current_page and input_type == None %}
         <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'1' %}" class="option-button">
             <!-- Forward Arrow Icon -->
             &rarr; <!-- Rightward arrow -->
         </a>
     {% endif %}
+    
+    {% if total_pages != 1 and total_pages != current_page and input_type != None %}
+    <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'1' input_type=input_type %}" class="option-button">
+        <!-- Forward Arrow Icon -->
+        &rarr; <!-- Rightward arrow -->
+    </a>
+{% endif %}
     
     {% block content_1 %}
         </div>
