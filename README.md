@@ -3,7 +3,8 @@
 
 ## Visão Geral
 Este projeto apresenta uma aplicação web interativa desenvolvida para o Hackatown do Arquivo Nacional, com o objetivo de engajar a comunidade na descrição colaborativa de arquivos públicos. 
-Usuários podem contribuir descrevendo títulos, datas, descrições detalhadas e tags para documentos que são apresentados de forma aleatória. Quanto mais descrições ele fornecer, mais o usuário ganha pontos e pode juntar emblemas!
+Usuários podem contribuir descrevendo títulos, datas, descrições detalhadas e tags para documentos que são apresentados de forma aleatória. Quanto mais descrições ele fornecer, mais o usuário ganha pontos e pode juntar emblemas.
+Ele foi pensado e programado para funcionar de modo responsivo e compatível em todos os aparelhos que for rodar, sendo eles tablets, computadores ou celulares.
 ![image](https://github.com/miguelthemigs/files-project/assets/93150152/6c3277cd-cc77-4b02-bcf2-c60f901da3a2)
 
 ## Funcionalidades
@@ -23,6 +24,6 @@ Usuários podem contribuir descrevendo títulos, datas, descrições detalhadas 
 - **Emblemas de Reconhecimento**: Para incentivar a participação contínua, os usuários ganham emblemas ao atingir diferentes níveis de pontuação, que são exibidos na página do perfil.
   ![image](https://github.com/miguelthemigs/files-project/assets/93150152/cebc6c6c-fbd9-4bfe-b3d5-4de9247796bb)
 
-- **Dashboard Analítico**: Uma dashboard para administradores e usuários avançados que mostra as palavras mais votadas de cada documento, para facilitar a análise pelo Arquivo Nacional.
+- **Dashboard Analítico**: Uma dashboard para administradores e usuários avançados que mostra as palavras mais votadas em seus respectivos documentos, para facilitar a análise pelo Arquivo Nacional.
  ![image](https://github.com/miguelthemigs/files-project/assets/93150152/0b9e3223-2375-4a12-b18d-aaea23b1089c)
 
