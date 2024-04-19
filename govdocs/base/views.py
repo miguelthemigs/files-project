@@ -182,7 +182,7 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0):
     dpi = int(target_pixel_height / height_in_inches)
 
     # Convert the specified PDF page to an image at calculated DPI
-    images = convert_from_path(pdf_path, first_page=page_number, last_page=page_number, dpi=dpi, poppler_path=r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')
+    images = convert_from_path(pdf_path, first_page=page_number, last_page=page_number, dpi=dpi, poppler_path = r'files-project\poppler-24.02.0\Library\bin')#poppler_path=r'C:\Program Files (x86)\Release-24.02.0-0\poppler-24.02.0\Library\bin')
 
     image_data = []
     for image in images:
