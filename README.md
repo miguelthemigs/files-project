@@ -9,7 +9,7 @@ Ele foi pensado e programado para funcionar de modo responsivo e compatível em 
 
 ## Funcionalidades
 - **Descrição Colaborativa**: Usuários podem inserir descrições para títulos, datas, descrições detalhadas e tags. Cada contribuição é votada pela comunidade e descrições com maior número de votos seriam iriam para análise, para oficializar.
-  ### Títulos, descrições ou data:
+  ### Títulos, descrições ou data (exemplo com título):
   ![image](https://github.com/miguelthemigs/files-project/assets/93150152/a6069d88-b59f-4896-86b3-721c06072030)
   ### Tags
   - Podemos concordar com tags escritas por outros usuários:
