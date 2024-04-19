@@ -2,7 +2,7 @@
 ![Screenshot 2024-04-08 151719](https://github.com/miguelthemigs/files-project/assets/93150152/1fc45169-fcff-4b84-af0d-4bc7b615ef11)
 
 ## Visão Geral
-Este projeto apresenta uma aplicação web interativa desenvolvida para o Hackatown do Arquivo Nacional, com o objetivo de engajar a comunidade na descrição colaborativa de arquivos públicos. 
+Este projeto apresenta uma aplicação web interativa, desenvolvida em Django, desenvolvida para o Hackatown do Arquivo Nacional, com o objetivo de engajar a comunidade na descrição colaborativa de arquivos públicos. 
 Usuários podem contribuir descrevendo títulos, datas, descrições detalhadas e tags para documentos que são apresentados de forma aleatória. Quanto mais descrições ele fornecer, mais o usuário ganha pontos e pode juntar emblemas.
 Ele foi pensado e programado para funcionar de modo responsivo e compatível em todos os aparelhos que for rodar, sendo eles tablets, computadores ou celulares.
 ![image](https://github.com/miguelthemigs/files-project/assets/93150152/6c3277cd-cc77-4b02-bcf2-c60f901da3a2)
