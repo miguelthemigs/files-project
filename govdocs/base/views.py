@@ -66,6 +66,15 @@ def registerPage(request):
             
     return render(request, 'base/login_register.html', {'form': form}) 
 
+def inputlog_dashboard(request):
+    # Fetch InputLog entries ordered by score
+    inputs = InputLog.objects.all().order_by('-input_score')
+
+    context = {
+        'inputs': inputs,
+    }
+    return render(request, 'base/inputlog_dashboard.html', context)
+
 def userProfile(request, pk):
     user = get_object_or_404(User, id=pk)
     user_points, created = UserPoints.objects.get_or_create(user=user, defaults={'points': 0})
@@ -85,7 +94,7 @@ def userProfile(request, pk):
 
 
 
-def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None, input_id=None):
+def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None, input_id=None, avaliar=0):
     if request.method == 'POST':
         tags_json = request.POST.get('tags')
         if tags_json:
@@ -163,33 +172,56 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None, 
             'current_page': page_number,
             'input_type': input_type,
             'form': form,
+            'avaliar': avaliar,
             }, )
         else:
-            aleatorio = random.randint(0,1)
-            input_object = InputLog.objects.filter(input_type=4, doc_id=doc_id)
-            if len(input_object) == 0:
+            if avaliar == 1:
                 aleatorio = 1
-            input_object = input_object[0]
-
-            if aleatorio:
-                return render(request, 'base/input.html', {
-                'image_data': image_data,
-                'total_pages': len(pdf.pages),
-                'doc_id': doc_id,
-                'current_page': page_number,
-                'input_type': input_type,
-                'form': form,
-                }, )
+            elif avaliar == 2:
+                aleatorio = 0
+            else:
+                aleatorio = random.randint(0,1) # 1 input , 2 avaliar
+            if input_id == None:
+                input_object = InputLog.objects.filter(input_type=4, doc_id=doc_id)
+                if len(input_object) == 0:
+                    aleatorio = 1
+                elif aleatorio == 0 and len(input_object) != 0:
+                    indice = random.randint(0,len(input_object)- 1)
+                    input_object = input_object[indice]
+        
+                if aleatorio:
+                    return render(request, 'base/input.html', {
+                    'image_data': image_data,
+                    'total_pages': len(pdf.pages),
+                    'doc_id': doc_id,
+                    'current_page': page_number,
+                    'input_type': input_type,
+                    'form': form,
+                    'avaliar': 1,
+                    }, )
+                else:
+                    return render(request, 'base/avaliar.html', {
+                    'image_data': image_data,
+                    'total_pages': len(pdf.pages),
+                    'doc_id': doc_id,
+                    'current_page': page_number,
+                    'input_type': input_type,
+                    'input_id': input_object.input_id,
+                    'input_content':input_object.input_content,
+                    'avaliar': 2
+                    }, )
             else:
                 return render(request, 'base/avaliar.html', {
-                'image_data': image_data,
-                'total_pages': len(pdf.pages),
-                'doc_id': doc_id,
-                'current_page': page_number,
-                'input_type': input_type,
-                'input_id': input_object.input_id,
-                'input_content':input_object.input_content,
-                }, )
+                    'image_data': image_data,
+                    'total_pages': len(pdf.pages),
+                    'doc_id': doc_id,
+                    'current_page': page_number,
+                    'input_type': input_type,
+                    'input_id': input_id,
+                    'input_content': InputLog.objects.filter(input_id=input_id)[0].input_content,
+                    'avaliar': 2
+                    }, )
+
     
     else:
         return render(request, 'base/home.html', {
@@ -198,4 +230,18 @@ def show_doc(request, doc_id=None, page_number=1, randomize=0, input_type=None, 
             'doc_id': doc_id,
             'current_page': page_number
         })
+
+def increaseInputPoint(request, input_id,):  
+    list_input = InputLog.objects.filter(input_content=InputLog.objects.get(input_id=input_id).input_content)
+    for input_object in list_input:
+        input_object.input_score += 1
+        input_object.save()
         
+    return redirect('show-doc-randomize')        
+def decreaseInputPoint(request, input_id,):  
+    list_input = InputLog.objects.filter(input_content=InputLog.objects.get(input_id=input_id).input_content)
+    for input_object in list_input:
+        input_object.input_score -= 1
+        input_object.save()
+        
+    return redirect('show-doc-randomize')        

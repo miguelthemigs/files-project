@@ -1,7 +1,10 @@
 {% extends "base/home.html" %}
 {% block content_1 %}
 {% if input_type != None %}
-<style></style>
+<style>
+
+    
+</style>
 <div class="options-container">
     {% if input_type == 0 %}
     <h2>Qual o titulo do documento?:</h2>
@@ -26,7 +29,7 @@
     </form>
 
     {% elif input_type == 4 %}
-    <h2>Defina temas para o documento:</h2>
+    <h2>Defina tema(s) generico(s) para o documento:</h2>
     <form id="tagForm" method="POST">
         {% csrf_token %}
         <div id="tagContainer">

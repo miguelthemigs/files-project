@@ -26,14 +26,20 @@
                     <a href="{% url 'show-doc-randomize' %}" class="option-button">Começar</a>
                     <div>
                         {% endif %}
-                        {% if current_page > 1 and input_type == None %}
+                        {% if current_page > 1 and input_type == None and input_id == None %}
                         <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'-1' %}" class="option-button">
 
                             &larr;
                         </a>
                         {% endif %}
-                        {% if current_page > 1 and input_type != None %}
-                        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'-1' input_type=input_type %}" class="option-button">
+                        {% if current_page > 1 and input_type != None and input_id == None %}
+                        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'-1' input_type=input_type avaliar=avaliar %}" class="option-button">
+
+                            &larr;
+                        </a>
+                        {% endif %}
+                        {% if current_page > 1 and input_type != None  and input_id != None %}
+                        <a href="{% url 'show-doc-avaliar' doc_id=doc_id page_number=current_page|add:'-1' input_type=input_type input_id=input_id avaliar=avaliar%}" class="option-button">
 
                             &larr;
                         </a>
@@ -41,19 +47,25 @@
                         {% if doc_id != None and total_pages != 1%}
                         <h2>{{current_page}}/{{total_pages}}</h2>
                         {% endif %}
-                        {% if total_pages != 1 and total_pages != current_page and input_type == None %}
+                        {% if total_pages != 1 and total_pages != current_page and input_type == None and input_id == None%}
                         <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'1' %}" class="option-button">
-                            <!-- Forward Arrow Icon -->
+                            
                             &rarr;
-                            <!-- Rightward arrow -->
+                            
                         </a>
                         {% endif %}
 
-                        {% if total_pages != 1 and total_pages != current_page and input_type != None %}
-                        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'1' input_type=input_type %}" class="option-button">
-                            <!-- Forward Arrow Icon -->
+                        {% if total_pages != 1 and total_pages != current_page and input_type != None and input_id == None %}
+                        <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page|add:'1' input_type=input_type avaliar=avaliar %}" class="option-button">
+                            
                             &rarr;
-                            <!-- Rightward arrow -->
+                        </a>
+                        {% endif %}
+                        {% if total_pages != 1 and total_pages != current_page and input_type != None and input_id != None %}
+                        <a href="{% url 'show-doc-avaliar' doc_id=doc_id page_number=current_page|add:'1' input_type=input_type input_id=input_id avaliar=avaliar%}" class="option-button">
+                           
+                            &rarr;
+                            
                         </a>
                         {% endif %}
 
@@ -63,10 +75,11 @@
                     <div class="options-container">
                         <h2 class="options-instruction">O que você deseja responder sobre a imagem acima?</h2>
                         <div class="options-buttons">
-                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 %}" class="option-button">Título</a>
-                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 %}" class="option-button">Data</a>
-                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 %}" class="option-button">Descrição</a>
-                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=4 %}" class="option-button">Tema</a>
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=0 avaliar=0%}" class="option-button">Título</a>
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=1 avaliar=0%}" class="option-button">Data</a>
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=2 avaliar=0%}" class="option-button">Descrição</a>
+                            <a href="" class="option-button" style="background-color:#909090;cursor: not-allowed;pointer-events: none;  ">Tema Controlado</a>
+                            <a href="{% url 'show-doc-input-type' doc_id=doc_id page_number=current_page input_type=4 avaliar=0%}" class="option-button">Tema</a>
                         </div>
                     </div>
                     {% endif %}

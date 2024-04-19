@@ -14,5 +14,5 @@ class InputLogForm(forms.ModelForm):
         fields = '__all__' 
         exclude = ['input_id', 'user', 'doc_id', 'input_type','input_score']
 
-class TagForm(forms.Form):
-    tag = forms.CharField(max_length=100)
+class InputScore(forms.Form):
+    bool_score = forms.BooleanField()
