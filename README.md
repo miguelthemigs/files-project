@@ -1,29 +1,26 @@
-# Projeto Hackatown do Arquivo Nacional - Viva Documentos
+# National Archives' Hackatown Project - Viva Documentos
 ![Screenshot 2024-04-08 151719](https://github.com/miguelthemigs/files-project/assets/93150152/1fc45169-fcff-4b84-af0d-4bc7b615ef11)
 
-## Visão Geral
-Este projeto apresenta uma aplicação web interativa, desenvolvida em Django, desenvolvida para o Hackatown do Arquivo Nacional, com o objetivo de engajar a comunidade na descrição colaborativa de arquivos públicos. 
-Usuários podem contribuir descrevendo títulos, datas, descrições detalhadas e tags para documentos que são apresentados de forma aleatória. Quanto mais descrições ele fornecer, mais o usuário ganha pontos e pode juntar emblemas.
-Ele foi pensado e programado para funcionar de modo responsivo e compatível em todos os aparelhos que for rodar, sendo eles tablets, computadores ou celulares.
+## Overview
+This project presents an interactive web application, developed in Django, designed for the National Archives' Hackatown, aiming to engage the community in the collaborative description of public records. Users can contribute by describing titles, dates, detailed descriptions, and tags for randomly presented documents. The more descriptions they provide, the more points the user earns and can collect badges. It was designed and programmed to be responsive and compatible with all devices it runs on, whether tablets, computers, or cell phones.
 ![image](https://github.com/miguelthemigs/files-project/assets/93150152/6c3277cd-cc77-4b02-bcf2-c60f901da3a2)
 
-## Funcionalidades
-- **Descrição Colaborativa**: Usuários podem inserir descrições para títulos, datas, descrições detalhadas e tags. Cada contribuição é votada pela comunidade e descrições com maior número de votos seriam iriam para análise, para oficializar.
-  ### Títulos, descrições ou data (exemplo com título):
+## Features
+- **Collaborative Description**: Users can insert descriptions for titles, dates, detailed descriptions, and tags. Each contribution is voted on by the community, and descriptions with the highest number of votes would go for analysis, to be formalized.
+  ### Titles, descriptions, or dates (example with title):
   ![image](https://github.com/miguelthemigs/files-project/assets/93150152/a6069d88-b59f-4896-86b3-721c06072030)
   ### Tags
-  - Podemos concordar com tags escritas por outros usuários:
+  - We can agree with tags written by other users:
   ![image](https://github.com/miguelthemigs/files-project/assets/93150152/e4d30768-c6a4-4251-8afe-7ca0682c3457)
-  - Ou nós mesmos escrevemos nossas próprias tags:
+  - Or we write our own tags:
   ![image](https://github.com/miguelthemigs/files-project/assets/93150152/507e4ecb-5554-4145-96e9-680c20948953)
-  - O vocabulário controlado (palavras padrões fornecidas pelo Arquivo) não foi implementado, porém é simples de fazer e de muito valor para o Arquivo Nacional, já segue o padrão das tags, basta colocar tags específicas.
+  - The controlled vocabulary (standard words provided by the Archive) has not been implemented, but it is simple to do and of great value to the National Archives, as it follows the standard of tags, just put specific tags.
     
-- **Seleção Aleatória de Documentos**: Após a conclusão de uma descrição, um novo documento é apresentado aleatoriamente ao usuário, mantendo o engajamento e a variedade.
-- **Sistema de Pontuação**: Contribuidores recebem pontos por cada elemento que descrevem. Pontos adicionais são concedidos quando uma palavra sugerida é altamente votada.
+- **Random Selection of Documents**: After completing a description, a new document is randomly presented to the user, maintaining engagement and variety.
+- **Scoring System**: Contributors receive points for each element they describe. Additional points are awarded when a suggested word is highly voted.
   
-- **Emblemas de Reconhecimento**: Para incentivar a participação contínua, os usuários ganham emblemas ao atingir diferentes níveis de pontuação, que são exibidos na página do perfil.
+- **Recognition Badges**: To encourage continuous participation, users earn badges upon reaching different score levels, which are displayed on the profile page.
   ![image](https://github.com/miguelthemigs/files-project/assets/93150152/cebc6c6c-fbd9-4bfe-b3d5-4de9247796bb)
 
-- **Dashboard Analítico**: Uma dashboard para administradores e usuários avançados que mostra as palavras mais votadas em seus respectivos documentos, para facilitar a análise pelo Arquivo Nacional.
+- **Analytical Dashboard**: A dashboard for administrators and advanced users that shows the most voted words in their respective documents, to facilitate analysis by the National Archive.
  ![image](https://github.com/miguelthemigs/files-project/assets/93150152/0b9e3223-2375-4a12-b18d-aaea23b1089c)
-
