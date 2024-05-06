@@ -2,7 +2,7 @@
 ![Screenshot 2024-04-08 151719](https://github.com/miguelthemigs/files-project/assets/93150152/1fc45169-fcff-4b84-af0d-4bc7b615ef11)
 
 ## Overview
-This project presents an interactive web application, developed in Django, designed for the National Archives' Hackatown, aiming to engage the community in the collaborative description of public records. Users can contribute by describing titles, dates, detailed descriptions, and tags for randomly presented documents. The more descriptions they provide, the more points the user earns and can collect badges. It was designed and programmed to be responsive and compatible with all devices it runs on, whether tablets, computers, or cell phones.
+This project presents an interactive web application, developed in Django, designed for the National Archives' Hackatown (made in less than 2 days), aiming to engage the community in the collaborative description of public records. Users can contribute by describing titles, dates, detailed descriptions, and tags for randomly presented documents. The more descriptions they provide, the more points the user earns and can collect badges. It was designed and programmed to be responsive and compatible with all devices it runs on, whether tablets, computers, or cell phones.
 ![image](https://github.com/miguelthemigs/files-project/assets/93150152/6c3277cd-cc77-4b02-bcf2-c60f901da3a2)
 
 ## Features
