@@ -1,0 +1,12 @@
+{% extends "base/home.html" %}
+{% block content_1 %}
+<div class="options-container">
+    <h2 class="options-instruction">Você concorda com a tag para a imagem acima?</h2>
+    <h2 style="color: #8B0000">{{ input_content }}</h2>
+    <div class="options-buttons">
+        <a href="{% url 'increase-points' input_id=input_id%}" class="option-button">Sim</a>
+        <a href="{% url 'decrease-points' input_id=input_id%}" class="option-button">Não</a>        
+
+    </div>
+</div>
+{% endblock %}

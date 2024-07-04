@@ -1,0 +1,42 @@
+{% extends "base/header.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="profile-container">
+    <h1>{{ user.username }}</h1>
+    <p>Pontos: {{ points }}</p>
+
+    <!-- Emblemas -->
+    <br>
+    <h2>Emblemas:</h2>
+    <div class="badges-container">
+        {% for badge_score in badge_scores %}
+        <div class="badge">
+            {% if badge_score == 150 and points >= 150 %}
+            <img src="{% static 'images/badge/150.png' %}" alt="{{ badge_score }} Pontos" class="image.achieved">
+            {% elif badge_score == 150 and points < 150 %}
+            <img src="{% static 'images/badge/150.png' %}" alt="{{ badge_score }} Pontos" class="image.not-achieved" style="opacity: 0.1;">
+            {% endif %}
+
+            {% if badge_score == 500 and points >= 500 %}
+            <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos" class="image.achieved">
+            {% elif badge_score == 500 and points < 500 %}
+            <img src="{% static 'images/badge/500.png' %}" alt="{{ badge_score }} Pontos" class="image.not-achieved" style="opacity: 0.1;">
+            {% endif %}
+
+            {% if badge_score == 1000 and points >= 1000 %}
+            <img src="{% static 'images/badge/1000.png' %}" alt="{{ badge_score }} Pontos" class="image.achieved">
+            {% elif badge_score == 1000 and points < 1000 %}
+            <img src="{% static 'images/badge/1000.png' %}" alt="{{ badge_score }} Pontos" class="image.not-achieved" style="opacity: 0.1;">
+            {% endif %}
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

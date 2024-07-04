@@ -1,0 +1,31 @@
+{% extends 'base/header.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Viewer</title>
+</head>
+<body>
+    <h1>Document Viewer</h1>
+    {% for image in image_data %}
+    <div>
+        <img src="data:image/png;base64,{{ image }}" alt="Document Page">
+    </div>
+    {% endfor %}
+    <div>
+        {% if current_page > 1 %}
+            <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'-1' %}">Back</a>
+        {% endif %}
+        {% if total_pages != 1 and total_pages != current_page %}
+            <a href="{% url 'show-doc-page' doc_id=doc_id page_number=current_page|add:'1' %}">Forward</a>
+        {% endif %}
+
+        <a href="{% url 'show-doc-randomize' %}">Refresh</a>
+        
+    </div>
+</body>
+</html>
+{% endblock %}

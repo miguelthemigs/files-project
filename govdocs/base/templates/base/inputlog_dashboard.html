@@ -1,0 +1,72 @@
+{% extends 'base/header.html' %}
+{% block content %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .table-container {
+        width: auto;
+        text-align: center;
+    }
+
+    .table {
+        margin-bottom: 0;
+        background-color: transparent;
+    }
+
+    th, td {
+        text-align: center;
+        border: 1px solid #dee2e6;
+    }
+    
+    th {
+        background-color: #e9ecef;
+    }
+
+    .table, th, td {
+        border: none;
+    }
+</style>
+
+<div class="table-container">
+    <h1>Input Log Dashboard</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Documento:</th>
+                <th>Conteúdo:</th>
+                <th>Tipo de Conteúdo:</th>
+                <th>Avaliação:</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for input in inputs %}
+            <tr>
+                <td>{{ input.doc_id }}</td>
+                <td>{{ input.input_content }}</td>
+                <td>{% if input.input_type == 0 %}
+                        Título
+                    {% elif input.input_type == 1 %}
+                        Data
+                    {% elif input.input_type == 2 %}
+                        Âmbito e Conteúdo
+                    {% elif input.input_type == 3 %}
+                        Pontos de Indexação
+                    {% else %}
+                        Tag Informal
+                    {% endif %}
+                </td>
+                <td>{{ input.input_score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
